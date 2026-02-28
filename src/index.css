@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --color-charcoal: #121212;
+  --color-steel: #2c2c2e;
+  --color-accent: #e11d48; /* Crimson/Red for the garage brand */
+  --color-accent-glow: rgba(225, 29, 72, 0.3);
+}
+
+@layer base {
+  body {
+    @apply bg-charcoal text-white antialiased selection:bg-accent selection:text-white;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .bg-garage-gradient {
+    background: linear-gradient(135deg, var(--color-charcoal) 0%, var(--color-steel) 100%);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px var(--color-accent-glow);
+  }
+
+  .border-glow {
+    box-shadow: 0 0 15px var(--color-accent-glow);
+  }
+
+  .metal-sweep {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .metal-sweep::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.05),
+      transparent
+    );
+    transform: skewX(-25deg);
+    animation: sweep 8s infinite linear;
+  }
+
+  @keyframes sweep {
+    0% { left: -100%; }
+    100% { left: 200%; }
+  }
+
+  .dotted-line {
+    background-image: radial-gradient(circle, #ffffff33 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-charcoal;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-steel rounded-full border-2 border-charcoal;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-accent;
+}
